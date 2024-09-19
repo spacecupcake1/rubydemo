@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @product %>
+
+<h1><%= @product.name %></h1>
+
+<p>Available Quantity: <%= @product.quantity %></p>
+
+<h2>Place an Order</h2>
+
+<%= form_with(url: orders_path, local: true) do |form| %>
+  <%= form.hidden_field :product_id, value: @product.id %>
+
+  <div>
+    <%= form.label :quantity, "Quantity to Order:" %>
+    <%= form.number_field :quantity, min: 1, max: @product.quantity, required: true %>
+  </div>
+
+  <%= form.submit "Place Order" %>
+<% end %>
+
+<%= link_to 'Back to Products', products_path %>
+
+<div>
+  <%= link_to "Edit this product", edit_product_path(@product) %> |
+  <%= link_to "Back to products", products_path %>
+
+  <%= button_to "Destroy this product", @product, method: :delete %>
+</div>
